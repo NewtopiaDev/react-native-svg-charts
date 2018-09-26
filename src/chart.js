@@ -51,10 +51,6 @@ class Chart extends PureComponent {
 
         const { width, height } = this.state
 
-        if (data.length === 0) {
-            return <View style={ style }/>
-        }
-
         const mappedData = data.map((item, index) => ({
             y: yAccessor({ item, index }),
             x: xAccessor({ item, index }),
@@ -116,13 +112,16 @@ class Chart extends PureComponent {
                                     return null
                                 })
                             }
-                            <Path
-                                fill={ 'none' }
-                                { ...svg }
-                                d={ paths.path }
-                                animate={ animate }
-                                animationDuration={ animationDuration }
-                            />
+                            {
+                                data.length > 0 && 
+                                <Path
+                                    fill={ 'none' }
+                                    { ...svg }
+                                    d={ paths.path }
+                                    animate={ animate }
+                                    animationDuration={ animationDuration }
+                                />
+                            }
                             {
                                 React.Children.map(children, child => {
                                     if (child && !child.props.belowChart) {
